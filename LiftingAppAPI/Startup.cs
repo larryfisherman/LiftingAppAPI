@@ -1,3 +1,6 @@
+using DisneyClone;
+using LiftingAppAPI.Entities;
+using LiftingAppAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,16 +29,20 @@ namespace LiftingAppAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<LiftingAppDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LiftingAppAPI", Version = "v1" });
             });
+
+            services.AddScoped<IRecipesService, RecipesService>();
+            services.AddScoped<LiftingAppSeeder>();
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, LiftingAppSeeder seeder)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +61,8 @@ namespace LiftingAppAPI
             {
                 endpoints.MapControllers();
             });
+            seeder.Seed();
+
         }
     }
 }
