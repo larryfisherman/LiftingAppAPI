@@ -37,6 +37,7 @@ namespace LiftingAppAPI
             });
 
             services.AddScoped<IRecipesService, RecipesService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<LiftingAppSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
         }
