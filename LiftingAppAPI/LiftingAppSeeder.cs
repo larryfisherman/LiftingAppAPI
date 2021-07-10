@@ -41,7 +41,6 @@ namespace DisneyClone
             {
                 new Recipes()
                 {
-                    Id = '1',
                     Name = "Protein omlette",
                     Description = "A jumbo sweet semi thick omelette laced with Pulsin's Natural Vanilla Whey Protein for sweetness which is ideal for filling and topping with berries, yogurt, a little maple syrup and whatever other goodies you fancy.",
                     Proteins = "23g",

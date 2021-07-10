@@ -23,6 +23,11 @@ namespace LiftingAppAPI.Controllers
         [HttpPost]
         public ActionResult CreateRecipe([FromBody] CreateRecipeDto dto)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var id = _recipesService.Create(dto);
             return Created($"/api/recipes/{id}", null);
         }
@@ -33,5 +38,13 @@ namespace LiftingAppAPI.Controllers
             var recipes = _recipesService.GetAllRecipes();
             return Ok(recipes);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            _recipesService.Delete(id);
+            return Ok("Recipe removed");
+        }
+
     }
 }

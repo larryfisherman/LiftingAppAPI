@@ -8,10 +8,19 @@ namespace LiftingAppAPI.Entities
 {
     public class LiftingAppDbContext : DbContext
     {
-        private string _connectionString = "Server=ALBERT-PC\\LiftingAppApi;Database=LiftingAppDb;Trusted_Connection=True;";
+        private string _connectionString = "Server=LAPTOP-0LINFDL7\\LIFTINGAPPAPI;Database=LiftingAppDb;Trusted_Connection=True;";
 
         public DbSet<Recipes> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var recipe = modelBuilder.Entity<Recipes>();
+            recipe.Property(r => r.Name).IsRequired().HasMaxLength(25);
+            recipe.Property(r => r.Calories).IsRequired().HasMaxLength(4);
+            recipe.Property(r => r.Carbo).IsRequired().HasMaxLength(4);
+            recipe.Property(r => r.Proteins).IsRequired().HasMaxLength(4);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
