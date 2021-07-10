@@ -20,6 +20,10 @@ namespace LiftingAppAPI.Entities
             recipe.Property(r => r.Calories).IsRequired().HasMaxLength(4);
             recipe.Property(r => r.Carbo).IsRequired().HasMaxLength(4);
             recipe.Property(r => r.Proteins).IsRequired().HasMaxLength(4);
+
+            var account = modelBuilder.Entity<User>();
+            account.Property(a => a.Email).IsRequired();
+            account.Property(a => a.PasswordHash).IsRequired();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
