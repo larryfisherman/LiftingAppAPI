@@ -42,6 +42,15 @@ namespace LiftingAppAPI
 
             Configuration.GetSection("Authentication").Bind(authenticationSettings);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("FrontEndClient", builder =>
+                    builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin()
+                    );
+            });
+
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
             {
@@ -87,6 +96,8 @@ namespace LiftingAppAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LiftingAppAPI v1"));
             }
 
+            app.UseCors("FrontEndClient");
+
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
@@ -100,6 +111,8 @@ namespace LiftingAppAPI
                 endpoints.MapControllers();
             });
             seeder.Seed();
+
+            
 
         }
     }
