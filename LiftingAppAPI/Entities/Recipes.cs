@@ -19,5 +19,6 @@ namespace LiftingAppAPI.Entities
         public string Calories { get; set; }
         public string Type { get; set; }
         public string Recipe { get; set; }
+        public string RecipePhoto { get; set; }
     }
 }
