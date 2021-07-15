@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LiftingAppAPI.Entities;
+using LiftingAppAPI.Models;
 using LiftingAppAPI.Services.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace LiftingAppAPI
         public LiftingAppMappingProfile()
         {
             CreateMap<CreateRecipeDto, Recipes>();
+            CreateMap<CreateWorkoutDto, Workouts>();
         }
     }
 }

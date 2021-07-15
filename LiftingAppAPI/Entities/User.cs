@@ -14,5 +14,7 @@ namespace LiftingAppAPI.Entities
         [Required]
         public string PasswordHash { get; set; }
         public string ProfilePhoto { get; set; }
+        
+        public virtual List<Workouts> Workouts { get; set; }
     }
 }

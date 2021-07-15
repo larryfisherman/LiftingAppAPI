@@ -12,6 +12,7 @@ namespace LiftingAppAPI.Entities
 
         public DbSet<Recipes> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Workouts> Workouts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
