@@ -15,6 +15,7 @@ namespace LiftingAppAPI
         {
             CreateMap<CreateRecipeDto, Recipes>();
             CreateMap<CreateWorkoutDto, Workouts>();
+            CreateMap<CreateExcerciseDto, Exercises>();
         }
     }
 }

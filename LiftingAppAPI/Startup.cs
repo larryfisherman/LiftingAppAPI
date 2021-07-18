@@ -51,6 +51,11 @@ namespace LiftingAppAPI
                     );
             });
 
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+             );
+
             services.AddSingleton(authenticationSettings);
             services.AddAuthentication(option =>
             {
@@ -80,6 +85,8 @@ namespace LiftingAppAPI
 
             services.AddScoped<IRecipesService, RecipesService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IWorkoutsService, WorkoutsService>();
+            services.AddScoped<IExerciseService, ExercisesService>();
             services.AddScoped<LiftingAppSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -110,9 +117,8 @@ namespace LiftingAppAPI
             {
                 endpoints.MapControllers();
             });
-            seeder.Seed();
 
-            
+            seeder.Seed();
 
         }
     }

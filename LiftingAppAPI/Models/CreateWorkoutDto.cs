@@ -7,8 +7,7 @@ namespace LiftingAppAPI.Models
 {
     public class CreateWorkoutDto
     {
-        public string ExerciseName { get; set; }
-        public string Amount { get; set; }
-        public string UserId { get; set; }
+        public string WorkoutName { get; set; }
+        public int UserId { get; set; }
     }
 }

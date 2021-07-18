@@ -1,4 +1,5 @@
-﻿using LiftingAppAPI.Models;
+﻿using LiftingAppAPI.Entities;
+using LiftingAppAPI.Models;
 using LiftingAppAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,6 +32,12 @@ namespace LiftingAppAPI.Controllers
         {
             string token = _accountService.GenerateJwt(dto);
             return Ok(token);
+        }
+        [HttpGet]
+        public ActionResult <IEnumerable<User>> GetAll()
+        {
+            var users = _accountService.GetAll();
+            return Ok(users);
         }
     }
 }

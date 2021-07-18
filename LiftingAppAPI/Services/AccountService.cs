@@ -2,6 +2,7 @@
 using LiftingAppAPI.Exceptions;
 using LiftingAppAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI;
 using System;
@@ -19,6 +20,8 @@ namespace LiftingAppAPI.Services
     {
         public string GenerateJwt(LoginDto dto);
         public void RegisterUser(RegisterUserDto dto);
+        public IEnumerable<User> GetAll();
+
     }
 
     public class AccountService : IAccountService
@@ -32,6 +35,14 @@ namespace LiftingAppAPI.Services
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            var users = _dbContext.Users
+                .Include(w => w.Workouts)
+                .ToList();
+            return users;
         }
 
         public string GenerateJwt(LoginDto dto)
