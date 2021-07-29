@@ -1,17 +1,16 @@
-﻿using System;
+﻿using LiftingAppAPI.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LiftingAppAPI.Entities
+namespace LiftingAppAPI.Models
 {
-    public class Exercises
+    public class ExerciseDto
     {
         public int Id { get; set; }
         public string ExerciseName { get; set; }
         public string Sets { get; set; }
         public string Amount { get; set; }
-        public int WorkoutsId { get; set; }
-        public virtual Workouts Workouts { get; set; }
     }
 }

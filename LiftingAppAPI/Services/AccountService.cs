@@ -62,6 +62,8 @@ namespace LiftingAppAPI.Services
             {
                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                //new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+               new Claim(ClaimTypes.Name, $"{user.Id}"),
+               new Claim(type: JwtRegisteredClaimNames.Sub, value: user.Id.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));

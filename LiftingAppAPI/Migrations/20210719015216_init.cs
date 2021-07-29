@@ -48,8 +48,7 @@ namespace LiftingAppAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExcerciseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkoutName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -63,6 +62,34 @@ namespace LiftingAppAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Exercises",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExerciseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkoutId = table.Column<int>(type: "int", nullable: false),
+                    WorkoutsId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercises", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Exercises_Workouts_WorkoutsId",
+                        column: x => x.WorkoutsId,
+                        principalTable: "Workouts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercises_WorkoutsId",
+                table: "Exercises",
+                column: "WorkoutsId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Workouts_UserId",
                 table: "Workouts",
@@ -71,6 +98,9 @@ namespace LiftingAppAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Exercises");
+
             migrationBuilder.DropTable(
                 name: "Recipes");
 

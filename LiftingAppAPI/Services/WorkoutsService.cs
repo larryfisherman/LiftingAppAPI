@@ -13,6 +13,10 @@ namespace LiftingAppAPI.Services
     public interface IWorkoutsService
     {
         public int Create(int userId, CreateWorkoutDto dto);
+        public IEnumerable<WorkoutDto> GetAll();
+        public Workouts GetById(int userId, int workoutId);
+
+
     }
     public class WorkoutsService : IWorkoutsService
     {
@@ -23,6 +27,28 @@ namespace LiftingAppAPI.Services
         {
             _dbContext = dbContext;
             _mapper = mapper;
+        }
+
+        public IEnumerable<WorkoutDto> GetAll()
+        {
+            var exercises = _dbContext.Workouts.Include(w => w.Exercises).Select(p=>_mapper.Map<WorkoutDto>(p))
+                .ToList();
+
+            return exercises;
+        }
+
+        public Workouts GetById(int userId, int workoutId)
+        {
+            var user = GetUserById(userId);
+
+            var workout = _dbContext.Workouts.FirstOrDefault(w => w.Id == workoutId);
+            if (workout is null || workout.Id != workoutId)
+            {
+                throw new NotFoundException("Workout not found");
+            }
+
+            var workoutEntity = _mapper.Map<Workouts>(workout);
+            return workoutEntity;
         }
 
         public int Create(int userId, CreateWorkoutDto dto)
@@ -43,7 +69,6 @@ namespace LiftingAppAPI.Services
         private User GetUserById(int userId)
         {
             var user = _dbContext.Users
-                .Include(w => w.Workouts)
                 .FirstOrDefault(u => u.Id == userId);
 
             return user;

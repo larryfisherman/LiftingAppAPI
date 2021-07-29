@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LiftingAppAPI.Models
 {
-    public class CreateExcerciseDto
+    public class CreateExerciseDto
     {
         public string ExerciseName { get; set; }
         public string Sets { get; set; }
